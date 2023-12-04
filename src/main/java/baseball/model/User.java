@@ -1,24 +1,25 @@
 package baseball.model;
 
-import baseball.view.InputView;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserNumber {
+public class User {
     private static String userNumber;
 
     public void setUserNumber(String input) {
-        validate(input);
-        userNumber = input;
+        if(validate(input)) {
+            userNumber = input;
+        }
     }
 
-    private void validate(String input) {
+    public static boolean validate(String input) {
         validateInteger(input);
         validateLength(input);
         validateUnique(input);
+        return true;
     }
 
-    private void validateInteger(String input) {
+    private static void validateInteger(String input) {
         try {
             Integer.parseInt(input);
         } catch (IllegalArgumentException e) {
@@ -26,13 +27,13 @@ public class UserNumber {
         }
     }
 
-    private void validateLength(String input) {
+    private static void validateLength(String input) {
         if(input.length() != 3) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void validateUnique(String input) {
+    private static void validateUnique(String input) {
         Set<Character> uniqueUserDigit = new HashSet<>();
         for (char digit : input.toCharArray()) {
             if (!uniqueUserDigit.add(digit)) {
