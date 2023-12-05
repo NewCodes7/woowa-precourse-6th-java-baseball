@@ -6,10 +6,11 @@ import java.util.Set;
 public class User {
     private static String userNumber;
 
-    public void setUserNumber(String input) {
+    public String setUserNumber(String input) {
         if(validate(input)) {
             userNumber = input;
         }
+        return userNumber;
     }
 
     public static boolean validate(String input) {
