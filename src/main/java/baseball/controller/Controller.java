@@ -10,31 +10,28 @@ import java.util.Map;
 public class Controller {
     public void excute() {
         OutputView.printGameStart();
-        compareNumbersRepeatedly();
+        manageGame();
     }
 
-    private static void compareNumbersRepeatedly() {
-        Computer computer = new Computer();
-        User user = new User();
-        String computerNumber = computer.setComputerNumber();
-        Umpire umpire = new Umpire(computerNumber);
-        System.out.println(computerNumber);
+    private static void manageGame() {
+        String computerNumber = new Computer().setComputerNumber();
+        System.out.println(computerNumber); //테스트용 임시 코드
         boolean areNumbersEqual = false;
         while(!areNumbersEqual) {
-            String userNumber = user.setUserNumber(InputView.readUserNumber());
-            Map<String, Integer> result = umpire.judge(userNumber);
+            String userNumber = new User().setUserNumber(InputView.readUserNumber());
+            Map<String, Integer> result = new Umpire(computerNumber).judge(userNumber);
             OutputView.printAttemptResult(result);
             if(result.get("strike") == 3) {
                 areNumbersEqual = true;
-                OutputView.printGameExit();
-                exitOrRestart();
             }
         }
+        OutputView.printGameExit();
+        exitOrRestart();
     }
 
     private static void exitOrRestart() {
         if(InputView.readGameExitOrRestart().equals("1")) {
-            compareNumbersRepeatedly();
+            manageGame();
         }
     }
 }
