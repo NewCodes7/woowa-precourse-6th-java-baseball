@@ -4,9 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User {
-    private static String userNumber;
-
     public String setUserNumber(String input) {
+        String userNumber = null;
         if(validate(input)) {
             userNumber = input;
         }
