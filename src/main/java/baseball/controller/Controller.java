@@ -1,5 +1,6 @@
 package baseball.controller;
 
+import baseball.constant.BaseballOutcome;
 import baseball.model.Computer;
 import baseball.model.Umpire;
 import baseball.model.User;
@@ -8,6 +9,9 @@ import baseball.view.OutputView;
 import java.util.Map;
 
 public class Controller {
+    public static final int THREE_STRIKE = 3;
+    public static final String RESTART_NUMBER = "1";
+
     public void excute() {
         OutputView.printGameStart();
         manageGame();
@@ -21,7 +25,7 @@ public class Controller {
             String userNumber = new User().setUserNumber(InputView.readUserNumber());
             Map<String, Integer> result = new Umpire(computerNumber).judge(userNumber);
             OutputView.printAttemptResult(result);
-            if(result.get("strike") == 3) {
+            if(result.get(BaseballOutcome.STRIKE.getEnglishName()) == THREE_STRIKE) {
                 areNumbersEqual = true;
             }
         }
@@ -30,7 +34,7 @@ public class Controller {
     }
 
     private static void exitOrRestart() {
-        if(InputView.readGameExitOrRestart().equals("1")) {
+        if(InputView.readGameExitOrRestart().equals(RESTART_NUMBER)) {
             manageGame();
         }
     }

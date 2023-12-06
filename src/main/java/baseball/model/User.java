@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class User {
+    public static final int NUMBER_LENGTH = 3;
+
     public String setUserNumber(String input) {
         String userNumber = null;
         if(validate(input)) {
@@ -28,7 +30,7 @@ public class User {
     }
 
     private static void validateLength(String input) {
-        if(input.length() != 3) {
+        if(input.length() != NUMBER_LENGTH) {
             throw new IllegalArgumentException();
         }
     }

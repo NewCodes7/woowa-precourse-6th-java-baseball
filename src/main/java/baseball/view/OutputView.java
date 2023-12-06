@@ -1,35 +1,42 @@
 package baseball.view;
 
+import baseball.constant.BaseballOutcome;
 import java.util.Map;
 
 public class OutputView {
+    public static final String START_GAME_MESSAGE = "숫자 야구 게임을 시작합니다.";
+    public static final String INPUT_NUMBER_MESSAGE = "숫자를 입력해주세요 : ";
+    public static final String GAME_EXIT_MESSAGE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+    public static final String SPACE_FOR_STRIKE = " ";
+    public static final int ZERO = 0;
+
     public static void printGameStart() {
-        System.out.println("숫자 야구 게임을 시작합니다.");
+        System.out.println(START_GAME_MESSAGE);
     }
 
     public static void printAttemptStart() {
-        System.out.print("숫자를 입력해주세요 : ");
+        System.out.print(INPUT_NUMBER_MESSAGE);
     }
 
     public static void printAttemptResult(Map<String, Integer> result) {
-        int strike = result.get("strike");
-        int ball = result.get("ball");
-        if (ball > 0) {
-            System.out.print(ball + "볼");
-            if (strike > 0) {
-                System.out.print(" ");
+        int strike = result.get(BaseballOutcome.STRIKE.getEnglishName());
+        int ball = result.get(BaseballOutcome.BALL.getEnglishName());
+        if (ball > ZERO) {
+            System.out.print(ball + BaseballOutcome.BALL.getKoreanName());
+            if (strike > ZERO) {
+                System.out.print(SPACE_FOR_STRIKE);
             }
         }
-        if (strike > 0) {
-            System.out.print(strike + "스트라이크");
+        if (strike > ZERO) {
+            System.out.print(strike + BaseballOutcome.STRIKE.getKoreanName());
         }
-        if (strike == 0 && ball == 0) {
-            System.out.print("낫싱");
+        if (strike == ZERO && ball == ZERO) {
+            System.out.print(BaseballOutcome.NOTHING.getKoreanName());
         }
         System.out.println();
     }
 
     public static void printGameExit() {
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.println(GAME_EXIT_MESSAGE);
     }
 }
