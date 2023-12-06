@@ -13,30 +13,35 @@ public class Controller {
     public static final String RESTART_NUMBER = "1";
 
     public void excute() {
+        Umpire umpire = new Umpire();
+        Computer computer = new Computer();
+        User user = new User();
         OutputView.printGameStart();
-        manageGame();
+        manageGame(umpire, computer, user);
     }
 
-    private static void manageGame() {
-        String computerNumber = new Computer().setComputerNumber();
-        System.out.println(computerNumber); //테스트용 임시 코드
+    private static void manageGame(Umpire umpire, Computer computer, User user) {
+        playGame(umpire, computer, user);
+        exitOrRestart(umpire, computer, user);
+    }
 
+    private static void playGame(Umpire umpire, Computer computer, User user) {
+        String computerNumber = computer.setComputerNumber();
         boolean areNumbersEqual = false;
         while(!areNumbersEqual) {
-            String userNumber = new User().setUserNumber(InputView.readUserNumber());
-            Map<String, Integer> result = new Umpire().judge(computerNumber, userNumber);
+            String userNumber = user.setUserNumber(InputView.readUserNumber());
+            Map<String, Integer> result = umpire.judge(computerNumber, userNumber);
             OutputView.printAttemptResult(result);
             if(result.get(BaseballOutcome.STRIKE.getEnglishName()) == THREE_STRIKE) {
                 areNumbersEqual = true;
             }
         }
         OutputView.printGameExit();
-        exitOrRestart();
     }
 
-    private static void exitOrRestart() {
+    private static void exitOrRestart(Umpire umpire, Computer computer, User user) {
         if(InputView.readGameExitOrRestart().equals(RESTART_NUMBER)) {
-            manageGame();
+            manageGame(umpire, computer, user);
         }
     }
 }
