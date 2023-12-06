@@ -14,15 +14,21 @@ public class Umpire {
     public Map<String, Integer> judge(String computerNumber, String userNumber) {
         List<String> splitComputerNumber = Arrays.asList(computerNumber.split(NUMBER_SPLIT_REGEX));
         List<String> splitUserNumber = Arrays.asList(userNumber.split(NUMBER_SPLIT_REGEX));
-        Map<String, Integer> result = new HashMap<>();
-        result.put(BaseballOutcome.STRIKE.getEnglishName(), ZERO_INITIALIZE);
-        result.put(BaseballOutcome.BALL.getEnglishName(), ZERO_INITIALIZE);
+        Map<String, Integer> result = initializeResult();
+
         for (String computerNumberDigit : splitComputerNumber) {
             boolean isSameDigit = splitUserNumber.contains(computerNumberDigit);
             boolean isSameIndex = splitComputerNumber.indexOf(computerNumberDigit) == splitUserNumber.indexOf(computerNumberDigit);
             result = isStrike(result, isSameDigit, isSameIndex);
             result = isBall(result, isSameDigit, isSameIndex);
         }
+        return result;
+    }
+
+    private static Map<String, Integer> initializeResult() {
+        Map<String, Integer> result = new HashMap<>();
+        result.put(BaseballOutcome.STRIKE.getEnglishName(), ZERO_INITIALIZE);
+        result.put(BaseballOutcome.BALL.getEnglishName(), ZERO_INITIALIZE);
         return result;
     }
 
