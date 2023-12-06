@@ -10,13 +10,9 @@ public class Umpire {
     public static final int ZERO_INITIALIZE = 0;
     public static final String NUMBER_SPLIT_REGEX = "";
     public static final int COUNT_PLUS = 1;
-    private static List<String> splitComputerNumber;
 
-    public Umpire(String computerNumber) {
-        splitComputerNumber = Arrays.asList(computerNumber.split(NUMBER_SPLIT_REGEX));
-    }
-
-    public Map<String, Integer> judge(String userNumber) {
+    public Map<String, Integer> judge(String computerNumber, String userNumber) {
+        List<String> splitComputerNumber = Arrays.asList(computerNumber.split(NUMBER_SPLIT_REGEX));
         List<String> splitUserNumber = Arrays.asList(userNumber.split(NUMBER_SPLIT_REGEX));
         Map<String, Integer> result = new HashMap<>();
         result.put(BaseballOutcome.STRIKE.getEnglishName(), ZERO_INITIALIZE);

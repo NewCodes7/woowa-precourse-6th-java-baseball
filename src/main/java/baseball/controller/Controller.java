@@ -20,10 +20,11 @@ public class Controller {
     private static void manageGame() {
         String computerNumber = new Computer().setComputerNumber();
         System.out.println(computerNumber); //테스트용 임시 코드
+
         boolean areNumbersEqual = false;
         while(!areNumbersEqual) {
             String userNumber = new User().setUserNumber(InputView.readUserNumber());
-            Map<String, Integer> result = new Umpire(computerNumber).judge(userNumber);
+            Map<String, Integer> result = new Umpire().judge(computerNumber, userNumber);
             OutputView.printAttemptResult(result);
             if(result.get(BaseballOutcome.STRIKE.getEnglishName()) == THREE_STRIKE) {
                 areNumbersEqual = true;
